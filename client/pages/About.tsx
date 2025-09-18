@@ -28,7 +28,7 @@ export default function About() {
   }, []);
 
   return (
-    <div className="container py-12 about-bg">
+    <div className="container py-12">
       {/* Hero */}
       <header className="grid gap-6 md:grid-cols-2 items-center">
         <div>
