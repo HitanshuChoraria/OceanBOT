@@ -160,6 +160,27 @@
     transform: translateY(0) scale(1);
   }
 
+  /* Slide inner wrappers to add horizontal motion without conflicting transforms */
+  .slide-left-inner,
+  .slide-right-inner {
+    opacity: 0;
+    transition: transform 680ms cubic-bezier(.2,.9,.2,1), opacity 680ms cubic-bezier(.2,.9,.2,1);
+  }
+  .reveal.is-visible .slide-left-inner {
+    opacity: 1;
+    transform: translateX(0) !important;
+  }
+  .slide-left-inner {
+    transform: translateX(-18px);
+  }
+  .reveal.is-visible .slide-right-inner {
+    opacity: 1;
+    transform: translateX(0) !important;
+  }
+  .slide-right-inner {
+    transform: translateX(18px);
+  }
+
   /* Team avatar */
   .team-avatar {
     width: 64px;
