@@ -48,9 +48,9 @@ const features = [
 ];
 
 export default function Index() {
-  const [q, setQ] = useState("");
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const fileRef = useRef<HTMLInputElement | null>(null);
+  const [q, setQ] = React.useState("");
+  const [imagePreview, setImagePreview] = React.useState<string | null>(null);
+  const fileRef = React.useRef<HTMLInputElement | null>(null);
 
 
   const onChooseImage = (e: React.ChangeEvent<HTMLInputElement>) => {
