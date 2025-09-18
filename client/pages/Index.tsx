@@ -60,7 +60,7 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-900 via-sky-900/90 to-background text-foreground">
+    <div className="min-h-screen text-foreground">
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="scroll-overlay pointer-events-none absolute inset-0 transition-opacity duration-300" aria-hidden />
