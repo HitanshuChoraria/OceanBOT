@@ -160,6 +160,17 @@
     transition: background 400ms linear;
   }
 
+  /* Global page watercolor background - driven by --page-dark */
+  .page-bg {
+    --pd-start: calc(0.35 - var(--page-dark, 0) * 0.25);
+    --pd-end: calc(0.05 + var(--page-dark, 0) * 0.9);
+    background-image: radial-gradient(1200px 600px at 10% 10%, rgba(174, 227, 255, calc(var(--pd-start))) , transparent 30%),
+                      radial-gradient(900px 400px at 80% 20%, rgba(200, 240, 255, calc(var(--pd-start) / 1.2)), transparent 30%),
+                      linear-gradient(180deg, rgba(210,235,255, calc(var(--pd-start))) 0%, rgba(6,50,80, calc(var(--pd-end))) 100%);
+    background-blend-mode: overlay, overlay, normal;
+    transition: background 400ms linear;
+  }
+
   /* Reveal on scroll */
   .reveal {
     opacity: 0;
