@@ -101,4 +101,51 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Marquee animation for continuous left-to-right movement */
+  .marquee {
+    --marquee-duration: 28s;
+  }
+
+  .marquee .marquee-inner {
+    display: inline-flex;
+    gap: 0.5rem;
+    animation: marquee-ltr var(--marquee-duration) linear infinite;
+    will-change: transform;
+  }
+
+  .marquee:hover .marquee-inner,
+  .marquee-inner:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-ltr {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  /* KPI/box hover pop */
+  .kpi-card,
+  .marquee .radix-card {
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .kpi-card:hover,
+  .marquee .radix-card:hover,
+  .marquee .card:hover,
+  .marquee .m-2:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 12px 30px rgba(2,6,23,0.35);
+  }
+
+  /* Smooth dark overlay controlled by --dark-opacity (0..1) */
+  .scroll-overlay {
+    background: linear-gradient(180deg, rgba(2,6,23,0) 0%, rgba(2,6,23,0.85) 100%);
+    opacity: calc(var(--dark-opacity, 0));
+    pointer-events: none;
+  }
 }
