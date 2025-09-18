@@ -93,6 +93,48 @@ export default function About() {
         </Card>
       </section>
 
+      {/* Why we exist - moved below mission */}
+      <section className="mt-8 reveal slide-in-right">
+        <Card className="p-6 bg-gradient-to-tr from-sky-50 to-cyan-50 hover:shadow-xl hover:-translate-y-2 transition-transform">
+          <h2 className="text-2xl font-bold">Why we exist</h2>
+          <p className="mt-3 text-muted-foreground max-w-3xl">Ocean data is fragmented across formats, vocabularies, and organizations. We bring these together with transparent processing and curated semantics so teams can focus on science and policy.</p>
+
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="h-5 w-5 text-sky-600 floaty" />
+              <div>
+                <div className="font-semibold">Reduce friction</div>
+                <div className="text-xs text-muted-foreground">One platform for discovery to delivery</div>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <Globe2 className="h-5 w-5 text-sky-600 floaty" />
+              <div>
+                <div className="font-semibold">Scale globally</div>
+                <div className="text-xs text-muted-foreground">From local surveys to ocean basins</div>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <Database className="h-5 w-5 text-sky-600 floaty" />
+              <div>
+                <div className="font-semibold">Trust & provenance</div>
+                <div className="text-xs text-muted-foreground">Auditable lineage and versioning</div>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <Cpu className="h-5 w-5 text-sky-600 floaty" />
+              <div>
+                <div className="font-semibold">Actionable insights</div>
+                <div className="text-xs text-muted-foreground">AI-assisted summaries with explainability</div>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </section>
+
       {/* Who is it built for */}
       <section className="mt-12 reveal">
         <h2 className="text-2xl font-bold">Who is OceanIQ built for?</h2>
