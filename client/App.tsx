@@ -28,9 +28,18 @@ function Header() {
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur supports-[backdrop-filter]:bg-white/50 bg-white/70 border-b border-white/30">
       <div className="container flex h-16 items-center justify-between">
-        <a href="/" className="flex items-center gap-2 font-extrabold text-xl tracking-tight text-primary">
+        <a
+          href="/"
+          className="flex items-center gap-2 font-extrabold text-xl tracking-tight text-primary"
+        >
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-sm">
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M3 12c4-6 14-6 18 0" />
               <path d="M3 12c4 6 14 6 18 0" />
               <path d="M3 12h18" />
@@ -46,7 +55,9 @@ function Header() {
               className={({ isActive }) =>
                 cn(
                   "px-3 py-2 rounded-md transition-colors",
-                  isActive ? "text-primary bg-primary/10" : "text-foreground/70 hover:text-foreground"
+                  isActive
+                    ? "text-primary bg-primary/10"
+                    : "text-foreground/70 hover:text-foreground",
                 )
               }
             >
@@ -72,7 +83,13 @@ function Footer() {
         <div>
           <div className="flex items-center gap-2 font-extrabold text-lg text-primary">
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-sm">
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M3 12c4-6 14-6 18 0" />
                 <path d="M3 12c4 6 14 6 18 0" />
                 <path d="M3 12h18" />
@@ -81,16 +98,33 @@ function Footer() {
             OceanIQ
           </div>
           <p className="mt-4 text-sm text-muted-foreground max-w-sm">
-            AI-driven unified data platform for oceanographic, fisheries, and molecular biodiversity insights.
+            AI-driven unified data platform for oceanographic, fisheries, and
+            molecular biodiversity insights.
           </p>
         </div>
         <div>
           <h4 className="text-sm font-semibold">Platform</h4>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li><a className="hover:text-foreground" href="/data">Data Hub</a></li>
-            <li><a className="hover:text-foreground" href="/publish">Publish</a></li>
-            <li><a className="hover:text-foreground" href="/dashboard">Dashboard</a></li>
-            <li><a className="hover:text-foreground" href="/about">About</a></li>
+            <li>
+              <a className="hover:text-foreground" href="/data">
+                Data Hub
+              </a>
+            </li>
+            <li>
+              <a className="hover:text-foreground" href="/publish">
+                Publish
+              </a>
+            </li>
+            <li>
+              <a className="hover:text-foreground" href="/dashboard">
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a className="hover:text-foreground" href="/about">
+                About
+              </a>
+            </li>
           </ul>
         </div>
         <div>

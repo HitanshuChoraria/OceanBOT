@@ -19,9 +19,21 @@ import {
 } from "lucide-react";
 
 const domains = [
-  { icon: Waves, title: "Oceanographic", desc: "Currents, temperature, salinity, bathymetry, remote sensing." },
-  { icon: Fish, title: "Fisheries", desc: "Catch records, effort, VMS/AIS, stock assessments, traceability." },
-  { icon: Microscope, title: "Molecular Biodiversity", desc: "eDNA, metagenomics, barcode repositories, taxonomic knowledge." },
+  {
+    icon: Waves,
+    title: "Oceanographic",
+    desc: "Currents, temperature, salinity, bathymetry, remote sensing.",
+  },
+  {
+    icon: Fish,
+    title: "Fisheries",
+    desc: "Catch records, effort, VMS/AIS, stock assessments, traceability.",
+  },
+  {
+    icon: Microscope,
+    title: "Molecular Biodiversity",
+    desc: "eDNA, metagenomics, barcode repositories, taxonomic knowledge.",
+  },
 ];
 
 const features = [
@@ -52,7 +64,6 @@ export default function Index() {
   const [imagePreview, setImagePreview] = React.useState<string | null>(null);
   const fileRef = React.useRef<HTMLInputElement | null>(null);
 
-
   const onChooseImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -64,20 +75,44 @@ export default function Index() {
     <div className="min-h-screen text-foreground">
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="scroll-overlay pointer-events-none absolute inset-0 transition-opacity duration-300" aria-hidden />
+        <div
+          className="scroll-overlay pointer-events-none absolute inset-0 transition-opacity duration-300"
+          aria-hidden
+        />
         <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_50%_-10%,theme(colors.sky.500/30),transparent_70%)]" />
-        <div className="absolute inset-0 pointer-events-none select-none opacity-40" aria-hidden>
-          <svg className="absolute -left-20 top-24 h-96 w-[48rem] text-sky-700/20" viewBox="0 0 800 400" fill="none">
-            <path d="M0,200 C150,300 250,100 400,200 C550,300 650,100 800,200" stroke="currentColor" strokeWidth="3" />
-            <path d="M0,240 C150,340 250,140 400,240 C550,340 650,140 800,240" stroke="currentColor" strokeWidth="2" />
-            <path d="M0,280 C150,380 250,180 400,280 C550,380 650,180 800,280" stroke="currentColor" strokeWidth="1.5" />
+        <div
+          className="absolute inset-0 pointer-events-none select-none opacity-40"
+          aria-hidden
+        >
+          <svg
+            className="absolute -left-20 top-24 h-96 w-[48rem] text-sky-700/20"
+            viewBox="0 0 800 400"
+            fill="none"
+          >
+            <path
+              d="M0,200 C150,300 250,100 400,200 C550,300 650,100 800,200"
+              stroke="currentColor"
+              strokeWidth="3"
+            />
+            <path
+              d="M0,240 C150,340 250,140 400,240 C550,340 650,140 800,240"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+            <path
+              d="M0,280 C150,380 250,180 400,280 C550,380 650,180 800,280"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            />
           </svg>
         </div>
 
         <div className="container relative py-20 md:py-28 text-center">
           {/* Centered single badge as requested */}
           <div className="mx-auto mb-6 inline-flex items-center justify-center">
-            <Badge className="text-lg md:text-xl px-6 py-3 rounded-full bg-sky-400/20 text-sky-50 border-sky-300/30">Unified Ocean Intelligence</Badge>
+            <Badge className="text-lg md:text-xl px-6 py-3 rounded-full bg-sky-400/20 text-sky-50 border-sky-300/30">
+              Unified Ocean Intelligence
+            </Badge>
           </div>
 
           {/* Search with image upload */}
@@ -90,7 +125,13 @@ export default function Index() {
             />
 
             <div className="flex items-center gap-2">
-              <input ref={fileRef} type="file" accept="image/*" onChange={onChooseImage} className="hidden" />
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                onChange={onChooseImage}
+                className="hidden"
+              />
               <button
                 onClick={() => fileRef.current?.click()}
                 title="Upload photo"
@@ -107,13 +148,29 @@ export default function Index() {
 
           {imagePreview && (
             <div className="mx-auto mt-4 w-48">
-              <img src={imagePreview} alt="preview" className="rounded-md border" />
+              <img
+                src={imagePreview}
+                alt="preview"
+                className="rounded-md border"
+              />
             </div>
           )}
 
           <div className="mt-5 flex flex-wrap justify-center gap-2 text-xs">
-            {['Sea surface temp', 'Chondrichthyes', 'eDNA', 'AIS/VMS', 'MPAs', 'Coral reefs'].map((t) => (
-              <span key={t} className="rounded-full bg-white/10 px-3 py-1 text-white/80 ring-1 ring-white/20">{t}</span>
+            {[
+              "Sea surface temp",
+              "Chondrichthyes",
+              "eDNA",
+              "AIS/VMS",
+              "MPAs",
+              "Coral reefs",
+            ].map((t) => (
+              <span
+                key={t}
+                className="rounded-full bg-white/10 px-3 py-1 text-white/80 ring-1 ring-white/20"
+              >
+                {t}
+              </span>
             ))}
           </div>
 
@@ -122,7 +179,10 @@ export default function Index() {
             <div className="marquee">
               <div className="marquee-inner">
                 {features.concat(features).map((f, idx) => (
-                  <Card key={f.title + String(idx)} className="m-2 w-72 border-white/20 bg-white/5 p-4 text-white/90 transform transition-transform duration-200 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl">
+                  <Card
+                    key={f.title + String(idx)}
+                    className="m-2 w-72 border-white/20 bg-white/5 p-4 text-white/90 transform transition-transform duration-200 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl"
+                  >
                     <div className="flex items-start gap-3">
                       <f.icon className="h-5 w-5 text-sky-300" />
                       <div>
@@ -137,8 +197,20 @@ export default function Index() {
           </div>
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <a href="/data" className={cn("inline-flex h-11 items-center rounded-md bg-sky-600 px-5 text-white shadow hover:bg-sky-500")}>Explore Data</a>
-            <a href="#contact" className="inline-flex h-11 items-center rounded-md bg-white/10 px-5 text-white ring-1 ring-white/30 hover:bg-white/15">Request a Demo</a>
+            <a
+              href="/data"
+              className={cn(
+                "inline-flex h-11 items-center rounded-md bg-sky-600 px-5 text-white shadow hover:bg-sky-500",
+              )}
+            >
+              Explore Data
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex h-11 items-center rounded-md bg-white/10 px-5 text-white ring-1 ring-white/30 hover:bg-white/15"
+            >
+              Request a Demo
+            </a>
           </div>
         </div>
       </section>
@@ -148,7 +220,10 @@ export default function Index() {
         <div className="container py-16">
           <div className="grid gap-8 md:grid-cols-3">
             {domains.map((d) => (
-              <div key={d.title} className="rounded-xl border bg-card p-6 shadow-sm">
+              <div
+                key={d.title}
+                className="rounded-xl border bg-card p-6 shadow-sm"
+              >
                 <div className="flex items-center gap-3">
                   <d.icon className="h-6 w-6 text-sky-600" />
                   <h3 className="text-lg font-semibold">{d.title}</h3>
@@ -156,7 +231,12 @@ export default function Index() {
                 <p className="mt-3 text-sm text-muted-foreground">{d.desc}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {["Datasets", "APIs", "Pipelines"].map((k) => (
-                    <span key={k} className="rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-700 ring-1 ring-sky-100">{k}</span>
+                    <span
+                      key={k}
+                      className="rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-700 ring-1 ring-sky-100"
+                    >
+                      {k}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -170,19 +250,42 @@ export default function Index() {
         <div className="container py-16">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
-              <h2 className="text-3xl font-bold tracking-tight">From raw data to decisions</h2>
+              <h2 className="text-3xl font-bold tracking-tight">
+                From raw data to decisions
+              </h2>
               <p className="mt-4 text-muted-foreground">
-                OceanIQ unifies disparate marine datasets into a knowledge graph and exposes them via powerful
-                search, analytics, and interoperable APIs. Build models, monitor ecosystems, and inform policy—fast.
+                OceanIQ unifies disparate marine datasets into a knowledge graph
+                and exposes them via powerful search, analytics, and
+                interoperable APIs. Build models, monitor ecosystems, and inform
+                policy—fast.
               </p>
               <ul className="mt-6 space-y-3 text-sm">
-                <li className="flex items-start gap-2"><Globe2 className="h-4 w-4 text-sky-600 mt-0.5" /> Global coverage with harmonized vocabularies</li>
-                <li className="flex items-start gap-2"><Bot className="h-4 w-4 text-sky-600 mt-0.5" /> AI assistance for discovery and metadata curation</li>
-                <li className="flex items-start gap-2"><Share2 className="h-4 w-4 text-sky-600 mt-0.5" /> Share as FAIR datasets, tiles, and APIs</li>
+                <li className="flex items-start gap-2">
+                  <Globe2 className="h-4 w-4 text-sky-600 mt-0.5" /> Global
+                  coverage with harmonized vocabularies
+                </li>
+                <li className="flex items-start gap-2">
+                  <Bot className="h-4 w-4 text-sky-600 mt-0.5" /> AI assistance
+                  for discovery and metadata curation
+                </li>
+                <li className="flex items-start gap-2">
+                  <Share2 className="h-4 w-4 text-sky-600 mt-0.5" /> Share as
+                  FAIR datasets, tiles, and APIs
+                </li>
               </ul>
               <div className="mt-6 flex gap-3">
-                <a href="/publish" className="inline-flex h-10 items-center rounded-md bg-sky-600 px-4 text-white hover:bg-sky-500">Publish Data</a>
-                <a href="/dashboard" className="inline-flex h-10 items-center rounded-md border px-4 hover:bg-accent">View Dashboard</a>
+                <a
+                  href="/publish"
+                  className="inline-flex h-10 items-center rounded-md bg-sky-600 px-4 text-white hover:bg-sky-500"
+                >
+                  Publish Data
+                </a>
+                <a
+                  href="/dashboard"
+                  className="inline-flex h-10 items-center rounded-md border px-4 hover:bg-accent"
+                >
+                  View Dashboard
+                </a>
               </div>
             </div>
             <div className="rounded-xl border bg-card p-6 shadow-sm">
@@ -195,24 +298,36 @@ export default function Index() {
                       { label: "Species", value: "240k+" },
                       { label: "Vessels", value: "120k+" },
                       { label: "Genomes", value: "95k+" },
-                    ].concat([
-                      { label: "Datasets", value: "58k+" },
-                      { label: "Species", value: "240k+" },
-                      { label: "Vessels", value: "120k+" },
-                      { label: "Genomes", value: "95k+" },
-                    ]).map((s, i) => (
-                      <div key={s.label + i} className="kpi-card rounded-lg border bg-white p-4 text-center min-w-[140px] transition-transform duration-200 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl">
-                        <div className="text-2xl font-bold text-sky-700">{s.value}</div>
-                        <div className="text-xs text-muted-foreground">{s.label}</div>
-                      </div>
-                    ))}
+                    ]
+                      .concat([
+                        { label: "Datasets", value: "58k+" },
+                        { label: "Species", value: "240k+" },
+                        { label: "Vessels", value: "120k+" },
+                        { label: "Genomes", value: "95k+" },
+                      ])
+                      .map((s, i) => (
+                        <div
+                          key={s.label + i}
+                          className="kpi-card rounded-lg border bg-white p-4 text-center min-w-[140px] transition-transform duration-200 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl"
+                        >
+                          <div className="text-2xl font-bold text-sky-700">
+                            {s.value}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {s.label}
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>
 
               <div className="mt-6 rounded-lg bg-gradient-to-tr from-sky-100 to-cyan-100 p-4 text-sm text-sky-900">
                 <p className="font-semibold">Knowledge Graph</p>
-                <p className="mt-1">Entities: Stations, Cruises, Species, Habitats, Vessels, Taxa, Genes</p>
+                <p className="mt-1">
+                  Entities: Stations, Cruises, Species, Habitats, Vessels, Taxa,
+                  Genes
+                </p>
               </div>
             </div>
           </div>
@@ -220,13 +335,30 @@ export default function Index() {
       </section>
 
       {/* CTA */}
-      <section id="contact" className="relative bg-gradient-to-tr from-sky-600 to-cyan-600">
+      <section
+        id="contact"
+        className="relative bg-gradient-to-tr from-sky-600 to-cyan-600"
+      >
         <div className="container py-14 text-center text-white">
-          <h3 className="text-2xl md:text-3xl font-bold tracking-tight">Ready to accelerate marine insights?</h3>
-          <p className="mt-2 text-white/90">Schedule a demo to see OceanIQ in action.</p>
+          <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+            Ready to accelerate marine insights?
+          </h3>
+          <p className="mt-2 text-white/90">
+            Schedule a demo to see OceanIQ in action.
+          </p>
           <div className="mt-6 flex justify-center gap-3">
-            <a href="/data" className="inline-flex h-11 items-center rounded-md bg-white px-5 text-sky-700 hover:bg-white/90">Explore Data</a>
-            <a href="mailto:hello@oceaniq.ai" className="inline-flex h-11 items-center rounded-md border border-white/40 px-5 text-white hover:bg-white/10">Email Us</a>
+            <a
+              href="/data"
+              className="inline-flex h-11 items-center rounded-md bg-white px-5 text-sky-700 hover:bg-white/90"
+            >
+              Explore Data
+            </a>
+            <a
+              href="mailto:hello@oceaniq.ai"
+              className="inline-flex h-11 items-center rounded-md border border-white/40 px-5 text-white hover:bg-white/10"
+            >
+              Email Us
+            </a>
           </div>
         </div>
       </section>
