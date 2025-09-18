@@ -51,18 +51,6 @@ export default function Index() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
 
-  // Smooth background darken on scroll (0..1)
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = window.scrollY;
-      const max = document.body.scrollHeight - window.innerHeight;
-      const ratio = max > 0 ? Math.min(1, Math.max(0, scrollTop / max)) : 0;
-      document.documentElement.style.setProperty("--dark-opacity", String(ratio));
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const onChooseImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
