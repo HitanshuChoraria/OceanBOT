@@ -91,6 +91,27 @@ export default function About() {
       </section>
 
 
+      {/* Values and commitments (moved above team) */}
+      <section className="mt-12 reveal slide-in-right">
+        <h2 className="text-2xl font-bold">Values & commitments</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <Card className="p-5 hover:-translate-y-2 hover:shadow-2xl transition-transform bg-gradient-to-tr from-sky-50 to-cyan-50">
+            <h4 className="font-semibold">Open science</h4>
+            <p className="text-sm mt-2 text-muted-foreground">We publish schemas and connectors under open licenses where possible.</p>
+          </Card>
+
+          <Card className="p-5 hover:-translate-y-2 hover:shadow-2xl transition-transform bg-gradient-to-tr from-sky-50 to-cyan-50">
+            <h4 className="font-semibold">Responsible AI</h4>
+            <p className="text-sm mt-2 text-muted-foreground">Model cards, audits, and human-in-the-loop curation for sensitive tasks.</p>
+          </Card>
+
+          <Card className="p-5 hover:-translate-y-2 hover:shadow-2xl transition-transform bg-gradient-to-tr from-sky-50 to-cyan-50">
+            <h4 className="font-semibold">Community-first</h4>
+            <p className="text-sm mt-2 text-muted-foreground">We partner with researchers, NGOs, and local communities to co-design features.</p>
+          </Card>
+        </div>
+      </section>
+
       {/* The Team */}
       <section className="mt-12">
         <h2 className="text-2xl font-bold reveal">The team</h2>
@@ -98,7 +119,7 @@ export default function About() {
 
         <div className="mt-6 grid gap-6 md:grid-cols-3">
           {team.map((p, i) => (
-            <article key={p.name} className="team-card reveal rounded-xl border p-5 bg-card transition-transform">
+            <article key={p.name} className="team-card reveal rounded-xl border p-5 bg-card transition-transform hover:translate-y-1 hover:shadow-lg">
               <div className="flex items-center gap-4">
                 <div className="team-avatar">{p.name.split(" ").map((n) => n[0]).slice(0,2).join("")}</div>
                 <div>
@@ -119,31 +140,33 @@ export default function About() {
       </section>
 
 
-      <section className="mt-12 reveal">
+      <section className="mt-12 reveal slide-in-left">
         <h2 className="text-2xl font-bold">Architecture (brief)</h2>
-        <p className="mt-2 text-muted-foreground max-w-3xl">Adapters ingest from sensors, files, and APIs; a semantic layer maps into a knowledge graph; compute and storage are separated to enable scalable analytics and reproducible pipelines.</p>
+        <div className="slide-left-inner">
+          <p className="mt-2 text-muted-foreground max-w-3xl">Adapters ingest from sensors, files, and APIs; a semantic layer maps into a knowledge graph; compute and storage are separated to enable scalable analytics and reproducible pipelines.</p>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <Card className="p-5">
-            <div className="flex items-start gap-3"><Database className="h-5 w-5 text-sky-600"/><div>
-              <div className="font-semibold">Storage</div>
-              <div className="text-sm text-muted-foreground">Time series, object storage, and graph indexes</div>
-            </div></div>
-          </Card>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <Card className="p-5 hover:scale-105 transition-transform">
+              <div className="flex items-start gap-3"><Database className="h-5 w-5 text-sky-600"/><div>
+                <div className="font-semibold">Storage</div>
+                <div className="text-sm text-muted-foreground">Time series, object storage, and graph indexes</div>
+              </div></div>
+            </Card>
 
-          <Card className="p-5">
-            <div className="flex items-start gap-3"><GitBranch className="h-5 w-5 text-sky-600"/><div>
-              <div className="font-semibold">Lineage</div>
-              <div className="text-sm text-muted-foreground">Versioning and provenance for every dataset</div>
-            </div></div>
-          </Card>
+            <Card className="p-5 hover:scale-105 transition-transform">
+              <div className="flex items-start gap-3"><GitBranch className="h-5 w-5 text-sky-600"/><div>
+                <div className="font-semibold">Lineage</div>
+                <div className="text-sm text-muted-foreground">Versioning and provenance for every dataset</div>
+              </div></div>
+            </Card>
 
-          <Card className="p-5">
-            <div className="flex items-start gap-3"><Cpu className="h-5 w-5 text-sky-600"/><div>
-              <div className="font-semibold">Compute</div>
-              <div className="text-sm text-muted-foreground">Batch and streaming pipelines with reproducible transforms</div>
-            </div></div>
-          </Card>
+            <Card className="p-5 hover:scale-105 transition-transform">
+              <div className="flex items-start gap-3"><Cpu className="h-5 w-5 text-sky-600"/><div>
+                <div className="font-semibold">Compute</div>
+                <div className="text-sm text-muted-foreground">Batch and streaming pipelines with reproducible transforms</div>
+              </div></div>
+            </Card>
+          </div>
         </div>
       </section>
 
