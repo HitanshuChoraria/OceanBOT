@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Users, Cpu, Smile, Database, Globe2, GitBranch } from "lucide-react";
@@ -44,48 +45,15 @@ export default function About() {
           </div>
         </div>
 
-        <div className="reveal">
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold">Mission</h3>
-            <p className="mt-3 text-sm text-muted-foreground">Empower decisions that sustain ocean health and blue economies through
-            accessible, auditable, and AI-augmented data products.</p>
-
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-5 w-5 text-sky-600 floaty" />
-                <div>
-                  <div className="font-semibold">FAIR by default</div>
-                  <div className="text-xs text-muted-foreground">Findable, Accessible, Interoperable, Reusable</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Globe2 className="h-5 w-5 text-sky-600 floaty" />
-                <div>
-                  <div className="font-semibold">Global scope</div>
-                  <div className="text-xs text-muted-foreground">From coastal to global surveys</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Database className="h-5 w-5 text-sky-600 floaty" />
-                <div>
-                  <div className="font-semibold">Unified schema</div>
-                  <div className="text-xs text-muted-foreground">Harmonize units, taxonomies, and time-series</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Cpu className="h-5 w-5 text-sky-600 floaty" />
-                <div>
-                  <div className="font-semibold">AI-assisted</div>
-                  <div className="text-xs text-muted-foreground">Metadata enrichment and entity linking</div>
-                </div>
-              </div>
-            </div>
-          </Card>
-        </div>
       </header>
+
+      {/* Mission (moved below header) */}
+      <section className="mt-8 reveal slide-in-left">
+        <Card className="p-6 bg-gradient-to-tr from-sky-50 to-cyan-50 hover:shadow-xl hover:-translate-y-2 transition-transform">
+          <h2 className="text-2xl font-bold">Mission</h2>
+          <p className="mt-3 text-muted-foreground max-w-3xl">Our mission is to make ocean data discoverable, interoperable and actionable — to support better science, policy, and sustainable blue economies. We combine robust pipelines, transparent provenance, and AI that helps rather than obscures.</p>
+        </Card>
+      </section>
 
       {/* Who is it built for */}
       <section className="mt-12 reveal">
@@ -122,26 +90,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* AI at OceanIQ */}
-      <section className="mt-12 reveal">
-        <h2 className="text-2xl font-bold">AI at OceanIQ</h2>
-        <p className="mt-2 text-muted-foreground max-w-3xl">We combine deterministic pipelines with ML and LLMs to automate hard parts of data harmonization and discovery.</p>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <Card className="p-5">
-            <h4 className="font-semibold">Entity resolution</h4>
-            <p className="text-sm mt-2 text-muted-foreground">Resolve taxonomic synonyms, station duplicates, and vessel IDs across datasets.</p>
-          </Card>
-          <Card className="p-5">
-            <h4 className="font-semibold">Smart ETL</h4>
-            <p className="text-sm mt-2 text-muted-foreground">Adaptive parsers that learn common file formats and repair common metadata issues.</p>
-          </Card>
-          <Card className="p-5">
-            <h4 className="font-semibold">Explainable models</h4>
-            <p className="text-sm mt-2 text-muted-foreground">Model outputs include provenance and confidence so decisions can be audited.</p>
-          </Card>
-        </div>
-      </section>
 
       {/* The Team */}
       <section className="mt-12">
@@ -170,26 +118,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Values and commitments */}
-      <section className="mt-12 reveal">
-        <h2 className="text-2xl font-bold">Values & commitments</h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <Card className="p-5">
-            <h4 className="font-semibold">Open science</h4>
-            <p className="text-sm mt-2 text-muted-foreground">We publish schemas and connectors under open licenses where possible.</p>
-          </Card>
-
-          <Card className="p-5">
-            <h4 className="font-semibold">Responsible AI</h4>
-            <p className="text-sm mt-2 text-muted-foreground">Model cards, audits, and human-in-the-loop curation for sensitive tasks.</p>
-          </Card>
-
-          <Card className="p-5">
-            <h4 className="font-semibold">Community-first</h4>
-            <p className="text-sm mt-2 text-muted-foreground">We partner with researchers, NGOs, and local communities to co-design features.</p>
-          </Card>
-        </div>
-      </section>
 
       <section className="mt-12 reveal">
         <h2 className="text-2xl font-bold">Architecture (brief)</h2>
