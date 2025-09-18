@@ -14,7 +14,7 @@ const team = [
 ];
 
 export default function About() {
-  useEffect(() => {
+  React.useEffect(() => {
     const obs = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
