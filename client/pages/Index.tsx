@@ -52,6 +52,7 @@ export default function Index() {
     <div className="min-h-screen bg-gradient-to-b from-sky-900 via-sky-900/90 to-background text-foreground">
       {/* Hero */}
       <section className="relative overflow-hidden">
+        <div className="scroll-overlay pointer-events-none absolute inset-0 transition-opacity duration-300" aria-hidden />
         <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_50%_-10%,theme(colors.sky.500/30),transparent_70%)]" />
         <div className="absolute inset-0 pointer-events-none select-none opacity-40" aria-hidden>
           <svg className="absolute -left-20 top-24 h-96 w-[48rem] text-sky-700/20" viewBox="0 0 800 400" fill="none">
