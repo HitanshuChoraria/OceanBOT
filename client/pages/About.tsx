@@ -44,46 +44,6 @@ export default function About() {
           </div>
         </div>
 
-        <div className="reveal slide-in-right">
-          <Card className="p-6 bg-gradient-to-tr from-sky-50 to-cyan-50">
-            <h3 className="text-lg font-semibold">Why we exist</h3>
-            <p className="mt-3 text-sm text-muted-foreground">We accelerate science and stewardship by making marine data usable, auditable, and connected. OceanIQ removes friction from discovery to decision.</p>
-
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-5 w-5 text-sky-600 floaty" />
-                <div>
-                  <div className="font-semibold">FAIR by default</div>
-                  <div className="text-xs text-muted-foreground">Findable, Accessible, Interoperable, Reusable</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Globe2 className="h-5 w-5 text-sky-600 floaty" />
-                <div>
-                  <div className="font-semibold">Global scope</div>
-                  <div className="text-xs text-muted-foreground">From coastal to global surveys</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Database className="h-5 w-5 text-sky-600 floaty" />
-                <div>
-                  <div className="font-semibold">Unified schema</div>
-                  <div className="text-xs text-muted-foreground">Harmonize units, taxonomies, and time-series</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Cpu className="h-5 w-5 text-sky-600 floaty" />
-                <div>
-                  <div className="font-semibold">AI-assisted</div>
-                  <div className="text-xs text-muted-foreground">Metadata enrichment and entity linking</div>
-                </div>
-              </div>
-            </div>
-          </Card>
-        </div>
       </header>
 
       {/* Mission (moved below header) */}
