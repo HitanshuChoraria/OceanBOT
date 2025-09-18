@@ -111,7 +111,7 @@ function Footer() {
 }
 
 function App() {
-  useEffect(() => {
+  React.useEffect(() => {
     const onScroll = () => {
       const scrollTop = window.scrollY;
       const max = document.body.scrollHeight - window.innerHeight;
