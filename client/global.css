@@ -149,6 +149,17 @@
     pointer-events: none;
   }
 
+  /* Watercolor background for About page - uses --about-dark (0..1) */
+  .about-bg {
+    --about-start-opacity: calc(0.35 - var(--about-dark, 0) * 0.25);
+    --about-end-opacity: calc(0.05 + var(--about-dark, 0) * 0.9);
+    background-image: radial-gradient(1200px 600px at 10% 10%, rgba(174, 227, 255, calc(var(--about-start-opacity))) , transparent 30%),
+                      radial-gradient(900px 400px at 80% 20%, rgba(200, 240, 255, calc(var(--about-start-opacity) / 1.2)), transparent 30%),
+                      linear-gradient(180deg, rgba(210,235,255, calc(var(--about-start-opacity))) 0%, rgba(6,50,80, calc(var(--about-end-opacity))) 100%);
+    background-blend-mode: overlay, overlay, normal;
+    transition: background 400ms linear;
+  }
+
   /* Reveal on scroll */
   .reveal {
     opacity: 0;
