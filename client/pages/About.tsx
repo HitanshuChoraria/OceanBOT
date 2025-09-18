@@ -23,7 +23,21 @@ export default function About() {
       { threshold: 0.12 },
     );
     document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
+
+    // About page watercolor background control
+    const onScroll = () => {
+      const scrollTop = window.scrollY;
+      const max = document.body.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? Math.min(1, Math.max(0, scrollTop / max)) : 0;
+      document.documentElement.style.setProperty("--about-dark", String(ratio));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      obs.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (
