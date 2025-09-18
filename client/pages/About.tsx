@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Users, Cpu, Smile, Database, Globe2, GitBranch } from "lucide-react";
+import { CheckCircle2, Users, Cpu, Database, Globe2, GitBranch } from "lucide-react";
 
 const team = [
   { name: "Dr. Maya Chen", role: "Chief Scientist", bio: "Marine ecologist with 15+ years in ecosystem modeling." },
@@ -34,9 +33,8 @@ export default function About() {
         <div>
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">About OceanIQ</h1>
           <p className="mt-4 text-muted-foreground max-w-2xl">
-            OceanIQ is a unified platform that brings together oceanographic, fisheries, and molecular biodiversity
-            data with AI-powered discovery, harmonization, and governance — built for scientists, managers, and
-            developers who need trustworthy, interoperable marine data.
+            OceanIQ unifies oceanographic, fisheries, and molecular biodiversity data with AI-augmented discovery,
+            harmonization, and governance — designed for researchers, managers, and developers who demand trustworthy, interoperable data.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
@@ -45,6 +43,46 @@ export default function About() {
           </div>
         </div>
 
+        <div className="reveal slide-in-right">
+          <Card className="p-6 bg-gradient-to-tr from-sky-50 to-cyan-50">
+            <h3 className="text-lg font-semibold">Why we exist</h3>
+            <p className="mt-3 text-sm text-muted-foreground">We accelerate science and stewardship by making marine data usable, auditable, and connected. OceanIQ removes friction from discovery to decision.</p>
+
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="h-5 w-5 text-sky-600 floaty" />
+                <div>
+                  <div className="font-semibold">FAIR by default</div>
+                  <div className="text-xs text-muted-foreground">Findable, Accessible, Interoperable, Reusable</div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Globe2 className="h-5 w-5 text-sky-600 floaty" />
+                <div>
+                  <div className="font-semibold">Global scope</div>
+                  <div className="text-xs text-muted-foreground">From coastal to global surveys</div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Database className="h-5 w-5 text-sky-600 floaty" />
+                <div>
+                  <div className="font-semibold">Unified schema</div>
+                  <div className="text-xs text-muted-foreground">Harmonize units, taxonomies, and time-series</div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Cpu className="h-5 w-5 text-sky-600 floaty" />
+                <div>
+                  <div className="font-semibold">AI-assisted</div>
+                  <div className="text-xs text-muted-foreground">Metadata enrichment and entity linking</div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
       </header>
 
       {/* Mission (moved below header) */}
@@ -61,7 +99,7 @@ export default function About() {
         <p className="mt-2 text-muted-foreground max-w-3xl">We serve a diverse audience — from research labs to fishery managers and platform developers.</p>
 
         <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <Card className="p-5">
+          <Card className="p-5 hover:translate-y-1 hover:shadow-lg transition-transform">
             <h3 className="font-semibold">Scientists & Researchers</h3>
             <p className="mt-2 text-sm text-muted-foreground">High fidelity data, provenance, and tools for reproducible science.</p>
             <ul className="mt-3 text-sm space-y-1 text-muted-foreground">
@@ -70,7 +108,7 @@ export default function About() {
             </ul>
           </Card>
 
-          <Card className="p-5">
+          <Card className="p-5 hover:translate-y-1 hover:shadow-lg transition-transform">
             <h3 className="font-semibold">Managers & NGOs</h3>
             <p className="mt-2 text-sm text-muted-foreground">Operational dashboards for compliance, MPA monitoring, and reporting.</p>
             <ul className="mt-3 text-sm space-y-1 text-muted-foreground">
@@ -79,7 +117,7 @@ export default function About() {
             </ul>
           </Card>
 
-          <Card className="p-5">
+          <Card className="p-5 hover:translate-y-1 hover:shadow-lg transition-transform">
             <h3 className="font-semibold">Developers & Integrators</h3>
             <p className="mt-2 text-sm text-muted-foreground">APIs, SDKs, and sample pipelines to integrate into products.</p>
             <ul className="mt-3 text-sm space-y-1 text-muted-foreground">
@@ -89,7 +127,6 @@ export default function About() {
           </Card>
         </div>
       </section>
-
 
       {/* Values and commitments (moved above team) */}
       <section className="mt-12 reveal slide-in-right">
@@ -138,7 +175,6 @@ export default function About() {
           ))}
         </div>
       </section>
-
 
       <section className="mt-12 reveal slide-in-left">
         <h2 className="text-2xl font-bold">Architecture (brief)</h2>
