@@ -1,5 +1,4 @@
 import React from "react";
-import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +15,10 @@ import {
   ShieldCheck,
   Globe2,
   Camera,
+  AlertCircle,
+  ImageIcon,
+  X,
+  Text
 } from "lucide-react";
 
 const domains = [
@@ -62,13 +65,129 @@ const features = [
 export default function Index() {
   const [q, setQ] = React.useState("");
   const [imagePreview, setImagePreview] = React.useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
+  const [imageDescription, setImageDescription] = React.useState("");
   const fileRef = React.useRef<HTMLInputElement | null>(null);
+  const [aiResult, setAiResult] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const [activeTab, setActiveTab] = React.useState<"text" | "image">("text");
+  const [useDescription, setUseDescription] = React.useState(false);
 
   const onChooseImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    
+    // Check if file is an image
+    if (!file.type.startsWith('image/')) {
+      setError("Please select an image file (JPEG, PNG, etc.)");
+      return;
+    }
+    
+    setSelectedImage(file);
+    setError(null);
     const url = URL.createObjectURL(file);
     setImagePreview(url);
+  };
+
+  const removeImage = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
+    setImageDescription("");
+    setUseDescription(false);
+    if (fileRef.current) {
+      fileRef.current.value = "";
+    }
+  };
+
+  const handleSearch = async () => {
+    if (activeTab === "text" && !q.trim()) {
+      setError("Please enter a search query");
+      return;
+    }
+
+    if (activeTab === "image" && !selectedImage && !imageDescription) {
+      setError("Please select an image or describe it for analysis");
+      return;
+    }
+
+    setLoading(true);
+    setAiResult(null);
+    setError(null);
+
+    try {
+      if (activeTab === "text") {
+        // Text-based search
+        const response = await fetch("http://localhost:8000/ai-search", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: q }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setAiResult(data.result);
+      } else {
+        // Image analysis - try direct upload first
+        if (selectedImage && !useDescription) {
+          const formData = new FormData();
+          formData.append("file", selectedImage as File);
+
+          const response = await fetch("http://localhost:8000/classify-image", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(`Classification failed: ${response.status} - ${errorData.detail || response.statusText}`);
+          }
+
+          const data = await response.json();
+          
+          if (data.status === "success" || data.status === "partial_success") {
+            setAiResult(data.classification);
+            if (data.note) {
+              setError(data.note); // Show informational note
+            }
+          } else {
+            throw new Error(data.error || "Unknown error occurred");
+          }
+        } else {
+          // Use text description for image analysis
+          const descriptionToUse = imageDescription || "the uploaded marine image";
+          
+          const response = await fetch("http://localhost:8000/ai-search", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              query: `Analyze this marine image description: ${descriptionToUse}. Please identify any marine species, habitat characteristics, behaviors, and provide scientific insights.` 
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+          }
+
+          const data = await response.json();
+          setAiResult(data.result);
+        }
+      }
+    } catch (err) {
+      console.error("Search error:", err);
+      setError(err.message || "Failed to process your request. Please try again.");
+    } finally {
+      setLoading(false);
+    }  
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   return (
@@ -108,53 +227,180 @@ export default function Index() {
         </div>
 
         <div className="container relative py-20 md:py-28 text-center">
-          {/* Centered single badge as requested */}
+          {/* Centered badge */}
           <div className="mx-auto mb-6 inline-flex items-center justify-center">
             <Badge className="text-lg md:text-xl px-6 py-3 rounded-full bg-sky-400/20 text-sky-50 border-sky-300/30">
               Unified Ocean Intelligence
             </Badge>
           </div>
 
-          {/* Search with image upload */}
-          <div className="mx-auto mt-8 flex max-w-2xl items-center gap-2 rounded-full bg-white/90 p-2 shadow-lg ring-1 ring-white/40 backdrop-blur">
-            <Input
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder="Search marine data, species, locations, datasets..."
-              className="h-12 rounded-full border-0 bg-transparent text-base focus-visible:ring-sky-500"
-            />
-
-            <div className="flex items-center gap-2">
-              <input
-                ref={fileRef}
-                type="file"
-                accept="image/*"
-                onChange={onChooseImage}
-                className="hidden"
-              />
+          {/* Search type selector */}
+          <div className="flex justify-center mb-6">
+            <div className="inline-flex rounded-md bg-white/10 p-1" role="group">
               <button
-                onClick={() => fileRef.current?.click()}
-                title="Upload photo"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sky-700 hover:bg-white/20"
+                onClick={() => setActiveTab("text")}
+                className={`px-4 py-2 text-sm font-medium rounded-l-md ${
+                  activeTab === "text" 
+                    ? "bg-sky-600 text-white" 
+                    : "bg-transparent text-white/70 hover:bg-white/5"
+                }`}
               >
-                <Camera className="h-5 w-5" />
+                <Search className="h-4 w-4 inline mr-2" />
+                Text Search
               </button>
-
-              <Button className="h-12 rounded-full px-6 bg-sky-600 hover:bg-sky-500 text-white">
-                <Search className="mr-2 h-4 w-4" /> Search
-              </Button>
+              <button
+                onClick={() => setActiveTab("image")}
+                className={`px-4 py-2 text-sm font-medium rounded-r-md ${
+                  activeTab === "image" 
+                    ? "bg-sky-600 text-white" 
+                    : "bg-transparent text-white/70 hover:bg-white/5"
+                }`}
+              >
+                <ImageIcon className="h-4 w-4 inline mr-2" />
+                Image Analysis
+              </button>
             </div>
           </div>
 
-          {imagePreview && (
-            <div className="mx-auto mt-4 w-48">
+          {/* Search with image upload */}
+          <div className="mx-auto mt-4 flex max-w-2xl items-center gap-2 rounded-full bg-white/90 p-2 shadow-lg ring-1 ring-white/40 backdrop-blur">
+            {activeTab === "text" ? (
+              <Input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Search marine data, species, locations, datasets..."
+                className="h-12 rounded-full border-0 bg-transparent text-base focus-visible:ring-sky-500"
+              />
+            ) : (
+              <div className="flex-1 flex items-center justify-between px-4">
+                {selectedImage ? (
+                  <div className="flex items-center gap-2">
+                    <ImageIcon className="h-5 w-5 text-sky-600" />
+                    <span className="text-sm truncate max-w-xs">{selectedImage.name}</span>
+                    <button
+                      onClick={removeImage}
+                      className="p-1 hover:bg-slate-100 rounded-full"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <span className="text-slate-500 text-sm">Select an image to analyze...</span>
+                )}
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={onChooseImage}
+                  className="hidden"
+                />
+                <button
+                  onClick={() => fileRef.current?.click()}
+                  className="text-sm text-sky-600 hover:text-sky-700 font-medium"
+                >
+                  Browse
+                </button>
+              </div>
+            )}
+
+            <Button
+              className="h-12 rounded-full px-6 bg-sky-600 hover:bg-sky-500 text-white"
+              onClick={handleSearch}
+              disabled={loading}
+            >
+              {loading ? (
+                <div className="flex items-center">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Analyzing...
+                </div>
+              ) : (
+                <>
+                  <Search className="mr-2 h-4 w-4" /> 
+                  {activeTab === "text" ? "Search" : "Analyze"}
+                </>
+              )}
+            </Button>
+          </div>
+
+          {/* Image description input */}
+          {activeTab === "image" && (
+            <div className="mx-auto mt-4 max-w-2xl">
+              <div className="flex items-center mb-2">
+                <Text className="h-4 w-4 mr-2 text-sky-600" />
+                <span className="text-sm text-slate-600">Or describe your image:</span>
+              </div>
+              <Input
+                value={imageDescription}
+                onChange={(e) => setImageDescription(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Describe what you see in the image (e.g., 'a colorful coral reef with tropical fish')"
+                className="rounded-full bg-white/90"
+              />
+              <div className="mt-2 flex items-center">
+                <input
+                  type="checkbox"
+                  id="useDescription"
+                  checked={useDescription}
+                  onChange={(e) => setUseDescription(e.target.checked)}
+                  className="mr-2"
+                />
+                <label htmlFor="useDescription" className="text-sm text-slate-600">
+                  Use description instead of image upload
+                </label>
+              </div>
+            </div>
+          )}
+
+          {imagePreview && !useDescription && (
+            <div className="mx-auto mt-4 w-48 relative">
               <img
                 src={imagePreview}
                 alt="preview"
-                className="rounded-md border"
+                className="rounded-md border shadow-sm"
               />
+              <button
+                onClick={removeImage}
+                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
           )}
+
+          <div className="mx-auto mt-4 max-w-2xl">
+            {loading && (
+              <div className="flex items-center justify-center text-sky-500">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-sky-500 mr-2"></div>
+                {activeTab === "text" ? "Fetching AI insights..." : "Analyzing image..."}
+              </div>
+            )}
+            
+            {error && (
+              <Card className="p-4 bg-red-50 text-red-800 mt-2 border-red-200">
+                <div className="flex items-center">
+                  <AlertCircle className="h-5 w-5 mr-2" />
+                  <h3 className="font-semibold">Error</h3>
+                </div>
+                <p className="mt-2">{error}</p>
+              </Card>
+            )}
+            
+            {aiResult && (
+              <Card className="p-4 bg-white/90 text-foreground mt-2">
+                <div className="flex items-center mb-3">
+                  <Badge className="mr-2 bg-sky-100 text-sky-700 hover:bg-sky-200">
+                    <Bot className="h-3 w-3 mr-1" /> 
+                    {activeTab === "text" ? "AI Insights" : "Image Analysis"}
+                  </Badge>
+                  <Badge variant="outline" className="text-xs">
+                    Marine Biology
+                  </Badge>
+                </div>
+                <div className="whitespace-pre-line">{aiResult}</div>
+              </Card>
+            )}
+          </div>
 
           <div className="mt-5 flex flex-wrap justify-center gap-2 text-xs">
             {[
@@ -167,14 +413,19 @@ export default function Index() {
             ].map((t) => (
               <span
                 key={t}
-                className="rounded-full bg-white/10 px-3 py-1 text-white/80 ring-1 ring-white/20"
+                className="rounded-full bg-white/10 px-3 py-1 text-white/80 ring-1 ring-white/20 cursor-pointer hover:bg-white/20"
+                onClick={() => {
+                  setActiveTab("text");
+                  setQ(t);
+                  setTimeout(() => handleSearch(), 100);
+                }}
               >
                 {t}
               </span>
             ))}
           </div>
 
-          {/* Features marquee - continuous left-to-right with hover pause */}
+          {/* Features marquee */}
           <div className="mt-10 overflow-hidden">
             <div className="marquee">
               <div className="marquee-inner">
@@ -216,27 +467,37 @@ export default function Index() {
       </section>
 
       {/* Domains */}
-      <section className="bg-background">
+      <section className="bg-slate-950">
         <div className="container py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">Marine Data Domains</h2>
+            <p className="text-slate-300 max-w-2xl mx-auto">
+              Explore our comprehensive marine data coverage across these key domains
+            </p>
+          </div>
+          
           <div className="grid gap-8 md:grid-cols-3">
             {domains.map((d) => (
               <div
                 key={d.title}
-                className="rounded-xl border bg-card p-6 shadow-sm"
+                className="rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-sky-400/30 hover:translate-y-1"
               >
-                <div className="flex items-center gap-3">
-                  <d.icon className="h-6 w-6 text-sky-600" />
-                  <h3 className="text-lg font-semibold">{d.title}</h3>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 rounded-lg bg-sky-900/30">
+                    <d.icon className="h-6 w-6 text-sky-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white">{d.title}</h3>
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground">{d.desc}</p>
+                <p className="mt-3 text-sm text-slate-300">{d.desc}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {["Datasets", "APIs", "Pipelines"].map((k) => (
-                    <span
+                    <Badge 
                       key={k}
-                      className="rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-700 ring-1 ring-sky-100"
+                      variant="outline" 
+                      className="text-xs bg-sky-900/20 text-sky-300 border-sky-700/50"
                     >
                       {k}
-                    </span>
+                    </Badge>
                   ))}
                 </div>
               </div>
@@ -246,7 +507,7 @@ export default function Index() {
       </section>
 
       {/* Why */}
-      <section className="relative">
+      <section className="relative bg-white">
         <div className="container py-16">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
@@ -364,4 +625,4 @@ export default function Index() {
       </section>
     </div>
   );
-}
+}  

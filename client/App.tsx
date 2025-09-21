@@ -45,7 +45,7 @@ function Header() {
               <path d="M3 12h18" />
             </svg>
           </span>
-          OceanIQ
+          OceanBot
         </a>
         <nav className="hidden md:flex items-center gap-1 text-sm">
           {nav.map((n) => (
@@ -95,7 +95,7 @@ function Footer() {
                 <path d="M3 12h18" />
               </svg>
             </span>
-            OceanIQ
+            OceanBot
           </div>
           <p className="mt-4 text-sm text-muted-foreground max-w-sm">
             AI-driven unified data platform for oceanographic, fisheries, and
@@ -137,7 +137,7 @@ function Footer() {
       </div>
       <div className="border-t">
         <div className="container py-6 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} OceanIQ. All rights reserved.
+          © {new Date().getFullYear()} OceanBot. All rights reserved.
         </div>
       </div>
     </footer>

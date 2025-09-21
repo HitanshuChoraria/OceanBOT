@@ -13,32 +13,32 @@ import {
 
 const team = [
   {
-    name: "Dr. Maya Chen",
-    role: "Chief Scientist",
+    name: "Kevin Ngangom",
+    role: "Backend Developer",
     bio: "Marine ecologist with 15+ years in ecosystem modeling.",
   },
   {
-    name: "Lucas Pérez",
+    name: "Hitanshu Choraria",
     role: "Lead Engineer",
     bio: "Distributed systems and data pipelines specialist.",
   },
   {
-    name: "Aisha Khan",
+    name: "Mahi",
     role: "AI Researcher",
     bio: "Computational biologist focused on eDNA analyses.",
   },
   {
-    name: "Emma Rossi",
+    name: "Aman Anubhav",
     role: "Product",
     bio: "Designing developer-first APIs and UX for scientists.",
   },
   {
-    name: "Noah Green",
+    name: "Megha",
     role: "Data Engineer",
     bio: "Time-series and geospatial ETL wizard.",
   },
   {
-    name: "Sofia Martins",
+    name: "Ammar",
     role: "Community & Outreach",
     bio: "Partnerships with research institutions and NGOs.",
   },
